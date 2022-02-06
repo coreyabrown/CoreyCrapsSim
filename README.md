@@ -1,0 +1,2 @@
+# CoreyCrapsSim
+Craps Strategy Simulator
