@@ -17,7 +17,7 @@ def corey(player, table, unit=5, strat_info=None):
     # When off, pass line
     passline(player, table, unit)
     
-    # When on, 2 come, play odds on 6 or 8, play field when not on 4, 9, or 10
+    # When on, 2 come, play odds on 6 or 8, play field when not on 4 or 10
     if table.point == "On":
         if table.point.number in [6, 8] and not player.has_bet("Odds") and player.has_bet("PassLine"):
             player.bet(Odds(3 * unit, player.get_bet("PassLine")))
@@ -32,7 +32,7 @@ def corey(player, table, unit=5, strat_info=None):
                 )
             )
 
-def coreynofield(player, table, unit=5, strat_info=None):
+def nofield(player, table, unit=5, strat_info=None):
     # When off, pass line
     passline(player, table, unit)
     
@@ -43,25 +43,27 @@ def coreynofield(player, table, unit=5, strat_info=None):
         if player.num_bet("Come") < 2:
             player.bet(Come(unit))
 
+def hedged2come (player, table, unit=5, strat_info=None):
+    # When off, don't pass line
+    dontpass(player, table, unit)
+    passline(player, table, unit)
+
+    if table.point == "On":
+        if table.point.number in [6,8] and not player.has_bet("Odds") and player.has_bet("PassLine"):
+            player.bet(Odds(3 * unit, player.get_bet("PassLine")))
+        if player.num_bet("Come") < 2:
+            player.bet(Come(unit))
+
+"""
+Fundamental Strategies
+"""
+
 def passline(player, table, unit=5, strat_info=None):
     # Pass line bet
     if table.point == "Off" and not player.has_bet("PassLine"):
         player.bet(PassLine(unit))
 
-if __name__ == "__main__":
-    # Test a betting strategy
-
-    from player import Player
-    from dice import Dice
-    from table import Table
-
-    # table = CrapsTable()
-    # table._add_player(Player(500, place68_2come))
-
-    d = Dice()
-    p = Player(500, place68_2come)
-    p.bet(PassLine(5))
-    p.bet(Place6(6))
-    print(p.bets_on_table)
-    print(p.bankroll)
-    print(p.total_bet_amount)
+def dontpass(player, table, unit=5, strat_info=None):
+    # Don't pass bet
+    if table.point == "Off" and not player.has_bet("DontPass"):
+        player.bet(DontPass(unit))

@@ -5,8 +5,8 @@ import csv
 n_sim = 10000
 bankroll = 200
 strategies = {
-    "coreynofield": customstrat.coreynofield,
-    "corey": customstrat.corey,
+    "nofield": customstrat.nofield,
+    "hedged2come": customstrat.hedged2come,
     "knockout": craps.strategy.knockout,
     "pass2come": craps.strategy.pass2come,
     "risk12": craps.strategy.risk12
