@@ -1,5 +1,5 @@
 # CoreyCrapsSim
-Craps Strategy Simulator
+Craps Strategy Simulator using https://github.com/skent259/crapssim
 
 
 
